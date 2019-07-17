@@ -1,13 +1,13 @@
 import discord
-from discord.ext import commands
+from redbot.core import commands
 import datetime
 import srcomapi, srcomapi.datatypes as dt
 
 api = srcomapi.SpeedrunCom()
+BaseCog = getattr(commands, "Cog", object)
+   
 
-class Mycog:
-    """My custom cog that does stuff!"""
-
+class Srlb(BaseCog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -31,10 +31,10 @@ class Mycog:
             else:
                 strResp = "Current World Record for {} - {}  is: {} by {}".format(game.name, catName, str(datetime.timedelta(seconds=worldRecord)), wrHolder.name)
             
-            await self.bot.say(strResp)
+            await ctx.send(strResp)
         else:
-            await self.bot.say("Sorry, I couldn't find the game you're looking for.")
+            await ctx.send("Sorry, I couldn't find the game you're looking for.")
 
 def setup(bot):
-    bot.add_cog(Mycog(bot))
+    bot.add_cog(Srlb(bot))
 
